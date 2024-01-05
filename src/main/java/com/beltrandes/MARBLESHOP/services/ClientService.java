@@ -22,7 +22,7 @@ public class ClientService {
     }
 
     public ClientDTO findClientById(String id) {
-        return clientMapper.toDTO(clientRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object not found. Id: " + id)));
+        return clientMapper.toDTO(clientRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Client not found. Id: " + id)));
     }
 
     public ClientDTO insertClient(ClientDTO client) {

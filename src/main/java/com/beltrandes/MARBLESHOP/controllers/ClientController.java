@@ -3,6 +3,7 @@ package com.beltrandes.MARBLESHOP.controllers;
 import com.beltrandes.MARBLESHOP.dtos.ClientDTO;
 import com.beltrandes.MARBLESHOP.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -32,4 +33,14 @@ public class ClientController {
         return ResponseEntity.created(uri).build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ClientDTO> update(@PathVariable String id, @RequestBody ClientDTO client) {
+        return ResponseEntity.ok().body(clientService.updateClient(id, client));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        clientService.deleteClient(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

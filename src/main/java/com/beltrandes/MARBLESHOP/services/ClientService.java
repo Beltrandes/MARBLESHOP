@@ -28,4 +28,18 @@ public class ClientService {
     public ClientDTO insertClient(ClientDTO client) {
         return clientMapper.toDTO(clientRepository.save(clientMapper.toEntity(client)));
     }
+
+    public ClientDTO updateClient(String id, ClientDTO client) {
+        var obj = clientMapper.toEntity(findClientById(id));
+        obj.setName(client.name());
+        obj.setPhone(client.phone());
+        obj.setEmail(client.email());
+        obj.setAddress(client.address());
+        return clientMapper.toDTO(clientRepository.save(obj));
+    }
+
+    public void deleteClient(String id) {
+        findClientById(id);
+        clientRepository.deleteById(id);
+    }
 }

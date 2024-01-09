@@ -1,5 +1,6 @@
 package com.beltrandes.MARBLESHOP.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -24,7 +25,7 @@ public class QuoteItem {
     private Double value;
     private Double totalValue;
     private Product product;
-    @DBRef
+    @JsonIgnore
     private Quotation quotation;
 
     public QuoteItem(String id, String name, Double mX, Double mY, Integer quantity, Product product, Quotation quotation) {

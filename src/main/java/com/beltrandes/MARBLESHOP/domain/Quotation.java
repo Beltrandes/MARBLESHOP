@@ -1,5 +1,6 @@
 package com.beltrandes.MARBLESHOP.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -18,14 +19,13 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 public class Quotation {
     @Id
-
     private String id;
     @CreatedDate
     private LocalDateTime date;
-    @DBRef(lazy = true)
     private Client client;
     private Double totalValue;
     private Double totalM2;
+    @JsonIgnore
     private List<QuoteItem> items = new ArrayList<>();
 
     public Quotation(String id, LocalDateTime date, Client client, List<QuoteItem> items) {

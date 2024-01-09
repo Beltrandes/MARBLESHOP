@@ -1,5 +1,6 @@
 package com.beltrandes.MARBLESHOP.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -29,7 +30,7 @@ public class Client {
     
     
     private String address;
-    
+    @JsonIgnore
     private List<Quotation> quotations = new ArrayList<>();
 
 

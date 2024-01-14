@@ -1,12 +1,18 @@
 package com.beltrandes.MARBLESHOP.dtos;
 
+import com.beltrandes.MARBLESHOP.domain.QuoteItem;
+
+import java.util.List;
+import java.util.UUID;
+
 public record ProductDTO(
-        String id,
+        UUID id,
         String name,
         String type,
         String color,
         String texture,
         String details,
-        Double value
+        Double value,
+        List<QuoteItem> items
 ) {
 }

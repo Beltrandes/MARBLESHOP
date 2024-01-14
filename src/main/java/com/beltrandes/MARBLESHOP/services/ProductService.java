@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -20,7 +21,7 @@ public class ProductService {
         return productRepository.findAll().stream().map(productMapper::toDTO).toList();
     }
 
-    public ProductDTO findProductById(String id) {
+    public ProductDTO findProductById(UUID id) {
         return productMapper.toDTO(productRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Product not found. Id: " + id)));
     }
 
@@ -28,7 +29,7 @@ public class ProductService {
         return productMapper.toDTO(productRepository.save(productMapper.toEntity(product)));
     }
 
-    public ProductDTO updateProduct(String id, ProductDTO product) {
+    public ProductDTO updateProduct(UUID id, ProductDTO product) {
         var obj = productMapper.toEntity(findProductById(id));
         obj.setName(product.name());
         obj.setType(product.type());
@@ -40,7 +41,7 @@ public class ProductService {
 
     }
 
-    public void deleteProduct(String id) {
+    public void deleteProduct(UUID id) {
         findProductById(id);
         productRepository.deleteById(id);
     }

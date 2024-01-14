@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class QuoteItemService {
@@ -16,7 +17,7 @@ public class QuoteItemService {
     @Autowired
     private QuoteItemMapper quoteItemMapper;
 
-    public QuoteItemDTO findQuoteItemById(String id) {
+    public QuoteItemDTO findQuoteItemById(UUID id) {
         return quoteItemMapper.toDTO(quoteItemRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("quoteItem not found. Id: " + id)));
     }
 
@@ -29,7 +30,7 @@ public class QuoteItemService {
 
     }
 
-    public void deleteQuoteItem(String id) {
+    public void deleteQuoteItem(UUID id) {
         findQuoteItemById(id);
         quoteItemRepository.deleteById(id);
     }

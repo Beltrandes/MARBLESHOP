@@ -1,17 +1,18 @@
 package com.beltrandes.MARBLESHOP.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-@Document
+@Entity
+@Table(name = "tb_quotation")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,18 +20,26 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 public class Quotation {
     @Id
-    private String id;
-    @CreatedDate
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    @CreationTimestamp
     private LocalDateTime date;
+    private Integer deadlineDays;
+    private LocalDateTime deadlineDate;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
     private Client client;
     private Double totalValue;
     private Double totalM2;
     @JsonIgnore
+    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL)
     private List<QuoteItem> items = new ArrayList<>();
 
-    public Quotation(String id, LocalDateTime date, Client client, List<QuoteItem> items) {
+    public Quotation(UUID id, LocalDateTime date, Integer deadlineDays, LocalDateTime deadlineDate, Client client, List<QuoteItem> items) {
         this.id = id;
         this.date = date;
+        this.deadlineDays = deadlineDays;
+        this.deadlineDate = deadlineDate;
         this.client = client;
         this.items = items;
     }
@@ -53,5 +62,9 @@ public class Quotation {
         } else {
             this.totalM2 = 0.0;
         }
+    }
+
+    public void calculateDeadlineDate() {
+        this.deadlineDate = date.plusDays(deadlineDays);
     }
 }

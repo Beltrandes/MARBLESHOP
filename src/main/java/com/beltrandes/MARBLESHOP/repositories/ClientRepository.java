@@ -1,8 +1,10 @@
 package com.beltrandes.MARBLESHOP.repositories;
 
 import com.beltrandes.MARBLESHOP.domain.Client;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClientRepository extends MongoRepository<Client, String> {
+import java.util.UUID;
+
+public interface ClientRepository extends JpaRepository<Client, UUID> {
 
 }

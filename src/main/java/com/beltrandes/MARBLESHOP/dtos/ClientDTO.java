@@ -3,9 +3,10 @@ package com.beltrandes.MARBLESHOP.dtos;
 import com.beltrandes.MARBLESHOP.domain.Quotation;
 
 import java.util.List;
+import java.util.UUID;
 
 public record ClientDTO(
-        String id,
+        UUID id,
         String name,
         String phone,
         String email,

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ClientService {
@@ -21,7 +22,7 @@ public class ClientService {
         return clientRepository.findAll().stream().map(clientMapper::toDTO).toList();
     }
 
-    public ClientDTO findClientById(String id) {
+    public ClientDTO findClientById(UUID id) {
         return clientMapper.toDTO(clientRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Client not found. Id: " + id)));
     }
 
@@ -29,7 +30,7 @@ public class ClientService {
         return clientMapper.toDTO(clientRepository.save(clientMapper.toEntity(client)));
     }
 
-    public ClientDTO updateClient(String id, ClientDTO client) {
+    public ClientDTO updateClient(UUID id, ClientDTO client) {
         var obj = clientMapper.toEntity(findClientById(id));
         obj.setName(client.name());
         obj.setPhone(client.phone());
@@ -38,7 +39,7 @@ public class ClientService {
         return clientMapper.toDTO(clientRepository.save(obj));
     }
 
-    public void deleteClient(String id) {
+    public void deleteClient(UUID id) {
         findClientById(id);
         clientRepository.deleteById(id);
     }

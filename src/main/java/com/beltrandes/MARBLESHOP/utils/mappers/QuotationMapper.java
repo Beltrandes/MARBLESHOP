@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class QuotationMapper {
     public QuotationDTO toDTO(Quotation entity) {
-        return new QuotationDTO(entity.getId(), entity.getDate(), entity.getClient(), entity.getItems());
+        return new QuotationDTO(entity.getId(), entity.getDate(), entity.getDeadlineDays(), entity.getDeadlineDate(),entity.getClient(), entity.getItems());
     }
 
     public Quotation toEntity(QuotationDTO dto) {
-       return new Quotation(dto.id(), dto.date(), dto.client(), dto.items());
+       return new Quotation(dto.id(), dto.date(), dto.deadlineDays(), dto.deadlineDate(),dto.client(), dto.items());
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -22,7 +23,7 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientDTO> findById(@PathVariable String id) {
+    public ResponseEntity<ClientDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.ok().body(clientService.findClientById(id));
     }
 
@@ -34,12 +35,12 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientDTO> update(@PathVariable String id, @RequestBody ClientDTO client) {
+    public ResponseEntity<ClientDTO> update(@PathVariable UUID id, @RequestBody ClientDTO client) {
         return ResponseEntity.ok().body(clientService.updateClient(id, client));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         clientService.deleteClient(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

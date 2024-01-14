@@ -1,7 +1,9 @@
 package com.beltrandes.MARBLESHOP.repositories;
 
 import com.beltrandes.MARBLESHOP.domain.Quotation;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface QuotationRepository extends MongoRepository<Quotation, String> {
+import java.util.UUID;
+
+public interface QuotationRepository extends JpaRepository<Quotation, UUID> {
 }

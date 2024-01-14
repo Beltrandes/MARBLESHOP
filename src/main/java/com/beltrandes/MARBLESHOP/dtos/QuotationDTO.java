@@ -5,10 +5,13 @@ import com.beltrandes.MARBLESHOP.domain.QuoteItem;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public record QuotationDTO(
-        String id,
+        UUID id,
         LocalDateTime date,
+        Integer deadlineDays,
+        LocalDateTime deadlineDate,
         Client client,
         List<QuoteItem> items
 

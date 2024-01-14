@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/quotation/items")
+@RequestMapping("/api/quotations/items")
 public class QuoteItemController {
     @Autowired
     private QuoteItemService quoteItemService;
@@ -22,7 +23,7 @@ public class QuoteItemController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<QuoteItemDTO> findById(@PathVariable String id) {
+    public ResponseEntity<QuoteItemDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.ok().body(quoteItemService.findQuoteItemById(id));
     }
 
@@ -34,7 +35,7 @@ public class QuoteItemController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         quoteItemService.deleteQuoteItem(id);
         return ResponseEntity.noContent().build();
     }

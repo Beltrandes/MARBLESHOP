@@ -1,21 +1,23 @@
 package com.beltrandes.MARBLESHOP.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.DataOutput;
+import java.util.UUID;
+
+
+@Entity
+@Table(name = "tb_quoteItem")
 @Getter
 @Setter
-@Document
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class QuoteItem {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
     private Double mX;
     private Double mY;
@@ -24,11 +26,16 @@ public class QuoteItem {
     private Double totalM2;
     private Double value;
     private Double totalValue;
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
     private Product product;
     @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "quotation_id")
     private Quotation quotation;
 
-    public QuoteItem(String id, String name, Double mX, Double mY, Integer quantity, Product product, Quotation quotation) {
+    public QuoteItem(UUID id, String name, Double mX, Double mY, Integer quantity, Product product, Quotation quotation) {
         this.id = id;
         this.name = name;
         this.mX = mX;
